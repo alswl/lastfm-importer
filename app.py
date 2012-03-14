@@ -7,24 +7,28 @@
 
 import sys
 import os
-sys.path.append(os.path.abspath('./lib/lastfm-0.2-py2.7.egg'))
 import webbrowser
 import yaml
 import argparse
 
+ROOT = os.path.abspath(os.path.dirname(__file__)) # 程序所在目录
+
+sys.path.append(os.path.join(ROOT, './lib/lastfm-0.2-py2.7.egg'))
 import lastfm
 
 reload(sys) # fix encode error
 sys.setdefaultencoding('utf-8')
 
+CONFIG_PATH = os.path.join(ROOT,'./config.yaml') # 配置文件
+
 def get_config():
-    return yaml.load(file('./config.yaml','r'), yaml.Loader)
+    return yaml.load(file(CONFIG_PATH, 'r'), yaml.Loader)
 
 def save_session_key(session_key):
     """将session_key保存到本地"""
     config = get_config()
     config['keys']['session_key'] = session_key
-    yaml.dump(config, file('./config.yaml','w'))
+    yaml.dump(config, file(CONFIG_PATH,'w'))
 
 def get_api():
     """获取api"""
