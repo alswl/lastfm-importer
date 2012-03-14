@@ -56,13 +56,19 @@ def set_session_key(api):
 def love_music(api, file_path):
     """喜欢音乐动作"""
     tag = eyeD3.Tag()
-    tag.link(file_path)
-    artist = tag.getArtist()
-    title = tag.getTitle()
+    try:
+        tag.link(file_path)
+        artist = tag.getArtist()
+        title = tag.getTitle()
+    except:
+        raise ValueError
     if artist is None or artist == '' or title is None or title == '':
         raise ValueError
-    track = api.get_track(title, artist)
-    track.love()
+    try:
+        track = api.get_track(title, artist)
+        track.love()
+    except lastfm.error.InvalidParametersError, e:
+        raise ValueError
 
 def walk_love(api, path):
     """走爱"""
