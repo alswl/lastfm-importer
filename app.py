@@ -59,7 +59,7 @@ def love_music(api, file_path):
     tag.link(file_path)
     artist = tag.getArtist()
     title = tag.getTitle()
-    if artist is None or title is None:
+    if artist is None or artist == '' or title is None or title == '':
         raise ValueError
     track = api.get_track(title, artist)
     track.love()
