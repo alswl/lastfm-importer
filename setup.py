@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 try:
     from setuptools import setup, find_packages
 except ImportError:
@@ -12,7 +13,8 @@ setup(
     author='alswl',
     author_email='alswl@gmail.com',
     url='http://log4d.com',
-    packages=[
-        "cElementTree",
+    requires=[
+        'cElementTree',
+        'eyeD3'
     ],
 )

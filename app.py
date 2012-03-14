@@ -14,7 +14,9 @@ import argparse
 ROOT = os.path.abspath(os.path.dirname(__file__)) # 程序所在目录
 
 sys.path.append(os.path.join(ROOT, './lib/lastfm-0.2-py2.7.egg'))
+sys.path.append(os.path.join(ROOT, './lib/eyeD3/'))
 import lastfm
+import eyeD3
 
 reload(sys) # fix encode error
 sys.setdefaultencoding('utf-8')
@@ -51,10 +53,14 @@ def set_session_key(api):
     api.set_session_key()
     return api.session_key
 
-def love_music(api, filename):
+def love_music(api, file_path):
     """喜欢音乐动作"""
-    artist, title = map(lambda x: x.strip().replace('.mp3', ''),
-                        filename.split('-'))
+    tag = eyeD3.Tag()
+    tag.link(file_path)
+    artist = tag.getArtist()
+    title = tag.getTitle()
+    if artist is None or title is None:
+        raise ValueError
     track = api.get_track(title, artist)
     track.love()
 
@@ -65,9 +71,9 @@ def walk_love(api, path):
             walk_love(api, dir)
         for file in files:
             try:
-                love_music(api, file.decode('utf-8'))
+                love_music(api, os.path.join(root, file))
                 print '-> %s' %file
-            except IndexError:
+            except ValueError:
                 print '-X %s' %file
                 continue
 
