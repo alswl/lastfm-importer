@@ -14,7 +14,7 @@ import argparse
 ROOT = os.path.abspath(os.path.dirname(__file__)) # 程序所在目录
 
 sys.path.append(os.path.join(ROOT, './lib/lastfm-0.2-py2.7.egg'))
-sys.path.append(os.path.join(ROOT, './lib/eyeD3/'))
+sys.path.append(os.path.join(ROOT, './lib/'))
 import lastfm
 import eyeD3
 
