@@ -13,8 +13,11 @@ setup(
     author='alswl',
     author_email='alswl@gmail.com',
     url='http://log4d.com',
-    requires=[
+    install_requires=[
+        'setuptools',
+        'decorator',
         'cElementTree',
-        'eyeD3'
+        #'eyeD3', # easy_install get error
+        'PyYAML',
     ],
 )
